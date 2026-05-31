@@ -123,7 +123,11 @@ body::after {
   border: 1px solid var(--gbd);
   border-radius: 20px;
   box-shadow: var(--sh);
+  overflow: hidden;
+  min-width: 0;
 }
+
+.p-lg { padding: 2rem; }
 
 /* ── NAV ── */
 #nav {
@@ -483,71 +487,95 @@ body::after {
 
 .profile-card {
   width: 100%;
-  padding: 1.6rem;
+  padding: 1.8rem 1.6rem 1.4rem;
   z-index: 2;
   animation: float 6s ease-in-out infinite;
-  position: relative
+  position: relative;
+  overflow: visible;            /* let badge overflow card edges */
 }
 
 .card-badge {
   position: absolute;
-  top: -12px;
-  right: -12px;
+  top: -14px;
+  right: 16px;
   background: var(--g);
   color: #fff;
-  padding: .3rem .8rem;
+  padding: .35rem 1rem;
   border-radius: 20px;
-  font-size: .7rem;
+  font-size: .68rem;
   font-weight: 700;
   font-family: var(--fh);
-  box-shadow: 0 4px 15px rgba(139, 92, 246, .4);
-  letter-spacing: .5px;
+  box-shadow: 0 4px 20px rgba(139, 92, 246, .55);
+  letter-spacing: .8px;
   text-transform: uppercase;
+  animation: badge-pulse 2.5s ease-in-out infinite;
 }
 
+@keyframes badge-pulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(139, 92, 246, .55); }
+  50%       { box-shadow: 0 4px 30px rgba(217, 70, 239, .75); }
+}
+
+/* avatar — square photo, full-width */
 .avatar {
   width: 100%;
-  height: 130px;
+  height: 190px;
   background: var(--g);
-  border-radius: 14px;
-  margin-bottom: 1.1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--fh);
-  font-size: 2.6rem;
-  font-weight: 800;
-  color: rgba(255, 255, 255, .9);
-  letter-spacing: -2px;
+  border-radius: 16px;
+  margin-bottom: 1.3rem;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(139, 92, 246, .25);
+  box-shadow: 0 0 0 4px rgba(139, 92, 246, .08);
 }
 
+.avatar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 55%, rgba(7, 7, 15, .55));
+  pointer-events: none;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* ── pinfo block ── */
 .pinfo {
-  margin-bottom: 1.1rem
+  margin-bottom: 1rem
 }
 
 .pinfo h3 {
-  font-size: 1.05rem;
+  font-size: 1.12rem;
   font-weight: 800;
-  margin-bottom: .1rem
+  margin-bottom: .15rem;
+  letter-spacing: -.2px;
 }
 
 .p-title {
   font-size: .78rem;
   color: var(--v2) !important;
   font-weight: 600;
-  margin-bottom: .6rem !important
+  margin-bottom: .75rem !important
 }
 
 .p-details {
   display: flex;
   flex-direction: column;
-  gap: .3rem;
-  margin-bottom: .9rem
+  gap: .35rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--gbd);
 }
 
 .p-details span {
-  font-size: .72rem;
-  color: var(--t3);
+  font-size: .74rem;
+  color: var(--t2);
   display: flex;
   align-items: center;
   gap: .4rem;
@@ -557,7 +585,8 @@ body::after {
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: .3rem
+  gap: .35rem;
+  margin-bottom: 1.1rem;
 }
 
 .chips span,
@@ -565,18 +594,26 @@ body::after {
   background: rgba(139, 92, 246, .12);
   border: 1px solid rgba(139, 92, 246, .25);
   color: var(--v);
-  padding: .15rem .55rem;
+  padding: .2rem .65rem;
   border-radius: 20px;
   font-size: .68rem;
   font-weight: 600;
   font-family: var(--fh);
+  transition: var(--fast);
 }
 
+.chips span:hover {
+  background: rgba(139, 92, 246, .22);
+  border-color: rgba(139, 92, 246, .5);
+}
+
+/* stats row */
 .stats {
   display: flex;
   justify-content: space-around;
   border-top: 1px solid var(--gbd);
-  padding-top: .9rem
+  padding-top: 1rem;
+  margin-top: .2rem;
 }
 
 .stat {
@@ -586,19 +623,21 @@ body::after {
 .stat b {
   display: block;
   font-family: var(--fh);
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   font-weight: 800;
   background: var(--g);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text
+  background-clip: text;
+  line-height: 1.2;
+  margin-bottom: .1rem;
 }
 
 .stat small {
-  font-size: .62rem;
+  font-size: .6rem;
   color: var(--t3);
   text-transform: uppercase;
-  letter-spacing: 1px
+  letter-spacing: 1.2px
 }
 
 @keyframes float {
